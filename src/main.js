@@ -3,6 +3,8 @@ import App from './app'
 import router from '@router'
 import store from '@state/store'
 import '@components/_globals'
+import ApolloClient from 'apollo-boost'
+import VueApollo from 'vue-apollo'
 
 // Don't warn about using the dev version of Vue in development.
 Vue.config.productionTip = process.env.NODE_ENV === 'production'
@@ -13,9 +15,18 @@ if (window.Cypress) {
   Vue.config.errorHandler = window.Cypress.cy.onUncaughtException
 }
 
+const apolloProvider = new VueApollo({
+  defaultClient: new ApolloClient({
+    uri: "https://fakerql.com/graphql'",
+  }),
+})
+
+Vue.use(VueApollo)
+
 const app = new Vue({
   router,
   store,
+  provide: apolloProvider.provide(),
   render: (h) => h(App),
 }).$mount('#app')
 
