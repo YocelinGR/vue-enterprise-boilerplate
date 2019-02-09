@@ -3,7 +3,9 @@ import App from './app'
 import router from '@router'
 import store from '@state/store'
 import '@components/_globals'
-import ApolloClient from 'apollo-boost'
+import { ApolloClient } from 'apollo-client'
+import { HttpLink } from 'apollo-link-http'
+import { InMemoryCache } from 'apollo-cache-inmemory'
 import VueApollo from 'vue-apollo'
 
 // Don't warn about using the dev version of Vue in development.
@@ -15,20 +17,31 @@ if (window.Cypress) {
   Vue.config.errorHandler = window.Cypress.cy.onUncaughtException
 }
 
-const apolloProvider = new VueApollo({
-  defaultClient: new ApolloClient({
-    uri: "https://fakerql.com/graphql'",
-  }),
+// Create apollo client
+const httpLink = new HttpLink({
+  uri: 'https://graphql-pokemon.now.sh/', // https://countries.trevorblades.com/"
+})
+
+const apolloClient = new ApolloClient({
+  link: httpLink,
+  cache: new InMemoryCache(),
+  connectToDevTools: true,
 })
 
 Vue.use(VueApollo)
 
+const apolloProvider = new VueApollo({
+  defaultClient: apolloClient,
+})
+
+// Start the app
 const app = new Vue({
+  el: '#app',
   router,
   store,
-  provide: apolloProvider.provide(),
+  apolloProvider,
   render: (h) => h(App),
-}).$mount('#app')
+})
 
 // If running inside Cypress...
 if (window.Cypress) {

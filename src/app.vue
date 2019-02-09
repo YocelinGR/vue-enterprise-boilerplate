@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    <DomiData />
+    <PokemonsList />
   </div>
 </template>
 
 <script>
-import DomiData from './components/domiData'
+import PokemonsList from './components/PokemonsList'
 
 export default {
   name: 'App',
   components: {
-    DomiData,
+    PokemonsList,
   },
 }
 </script>
@@ -20,9 +20,13 @@ export default {
   padding-bottom: 60px;
   margin-top: 60px;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  color: #2c3e50;
+  color: #c7230e;
   text-align: center;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    background: #4b5279;
 }
 </style>
