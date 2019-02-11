@@ -7,9 +7,10 @@ import { ApolloClient } from 'apollo-client'
 import { HttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import VueApollo from 'vue-apollo'
+import 'bootstrap/dist/css/bootstrap.css'
 
 // Don't warn about using the dev version of Vue in development.
-Vue.config.productionTip = process.env.NODE_ENV === 'production'
+Vue.config.productionTip = false // process.env.NODE_ENV === 'production'
 
 // If running inside Cypress...
 if (window.Cypress) {

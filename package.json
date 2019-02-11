@@ -35,7 +35,10 @@
     "@fortawesome/vue-fontawesome": "0.1.4",
     "apollo-boost": "^0.1.27",
     "axios": "0.18.0",
+    "bootstrap": "^4.2.1",
+    "font-awesome": "^4.7.0",
     "graphql": "^14.1.1",
+    "less-loader": "^4.1.0",
     "lodash": "4.17.11",
     "normalize.css": "8.0.1",
     "nprogress": "0.2.0",
@@ -43,6 +46,7 @@
     "vue-apollo": "^3.0.0-beta.28",
     "vue-meta": "1.5.8",
     "vue-router": "3.0.2",
+    "vuedraggable": "^2.17.0",
     "vuex": "3.0.1"
   },
   "devDependencies": {

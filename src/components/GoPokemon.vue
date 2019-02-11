@@ -1,14 +1,13 @@
 <template>
   <button>
-    <span>{{ pokemon.name }}</span>
-    <span>   {{ pokemon.number }}</span>
-    <p>Ataques</p>
+    <p>Name: {{ pokemon.name }}</p>
+    <p>Number: {{ pokemon.number }}</p>
+    <!-- <p>Attacks: </p>
     <ul>
       <li v-for="attack in pokemon.attacks.special" :key="attack.name">
-        <p>{{ attack.name }}</p>
+        <p>{{attack.name }}</p>
       </li>
-    </ul>
-
+    </ul> -->
   </button>
 </template>
 
@@ -17,7 +16,6 @@ export default {
   props: {
     pokemon: {
       type: Object,
-      default: {}
     },
   }
 }
