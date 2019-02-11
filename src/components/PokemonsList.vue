@@ -48,7 +48,6 @@
 </template>
 
 <script>
-
 // import GoPokemon from './GoPokemon';
 import SearchPokemon from './SearchPokemon';
 import draggable from 'vuedraggable';
