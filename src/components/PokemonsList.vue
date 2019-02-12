@@ -1,54 +1,55 @@
 <template>
-  <div class="fluid container">
+  <div class="fluid container col-md-12">
     <div class="form-group form-group-lg panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">Pokédex</h3>
       </div>
-      <div class="panel-body">
-        <div class="checkbox">
-          <label><input v-model="editable" type="checkbox">Move pokemons</label>
+      <div class="panel-body row">
+        <div class="col-md-8">
+          <SearchPokemon></SearchPokemon>
         </div>
-        <button type="button" class="btn btn-default" @click="orderList"><i class='fas fa-bowling-ball'>Lowest Number(First)</i></button>
-        <SearchPokemon></SearchPokemon>
+         <div class="col-md-3">
+           <button type="button" class="btn btn-dark" @click="orderList"><i class='fas fa-bowling-ball'></i>Lowest Number(First)</button>
+        </div>
+      </div>
+      <div class="checkbox row">
+        <input v-model="editable" type="checkbox">
+        <span>Move pokemons</span>
       </div>
     </div>
-
-    <div class="col-md-3 one">
+    <div class="row pokemons-container">
+    <div class="col-md-5 one">
       <ul is="draggable" v-model="dimanycPokemonList" class="list-group" :element="'ul'" :options="dragOptions" @start ="isDragging=true" @end="isDragging=false">
         <transition-group type="transition" name="flip-list">
-          <li v-for="pokemon in dimanycPokemonList" :key="pokemon.order" class="list-group-item">
-            <i :class="pokemon.fixed? 'fas fa-anchor' : 'fas fa-broom'" aria-hidden="true" @click=" pokemon.fixed=! pokemon.fixed"></i>
-            {{pokemon.name}}
+          <li v-for="pokemon in dimanycPokemonList" :key="pokemon.order" class="list-group-item">{{pokemon.name}}
             <span class="badge">{{ pokemon.order }}</span>
           </li>
         </transition-group>
       </ul>
     </div>
 
-    <div class="col-md-3 two">
+    <div class="col-md-5 two">
       <span is="draggable" v-model="pokemonsList2" :element="'span'" :options="dragOptions">
         <transition-group name="no" class="list-group" tag="ul">
-          <li v-for="pokemon in pokemonsList2" :key="pokemon.order" class="list-group-item">
-            <i :class="pokemon.fixed? 'fas fa-anchor' : 'fas fa-broom'" aria-hidden="true" @click=" pokemon.fixed=! pokemon.fixed"></i>
-            {{pokemon.name}}
+          <li v-for="pokemon in pokemonsList2" :key="pokemon.order" class="list-group-item">{{pokemon.name}}
             <span class="badge">{{ pokemon.order }}</span>
           </li>
         </transition-group>
       </span>
     </div>
-
-    <div class="list-group col-md-3 tree">
+  </div>
+    <!-- <div class="list-group col-md-3 tree">
       <pre>{{ listString }}</pre>
     </div>
 
     <div class="list-group col-md-3 four">
       <pre>{{ list2String }}</pre>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
-// import GoPokemon from './GoPokemon';
+
 import SearchPokemon from './SearchPokemon';
 import draggable from 'vuedraggable';
 import { mapState } from 'vuex';
@@ -56,7 +57,6 @@ import { mapState } from 'vuex';
 // Component definition
 export default {
   components: {
-    // GoPokemon,
     SearchPokemon,
     draggable,
   },
@@ -91,7 +91,6 @@ export default {
         return result;
       },
       set: function() {
-        // console.log('hecho');
       }
     },
     dragOptions(){
@@ -147,8 +146,8 @@ export default {
     transition: transform 0s;
   }
   .ghost {
-    opacity: 0.5;
     background: #c8ebfb;
+    opacity: 0.5;
   }
   .list-group {
     min-height: 20px;
@@ -159,25 +158,52 @@ export default {
   .list-group-item i {
     cursor: pointer;
   }
+  i {
+    padding: 6px;
+  }
+  h3 {
+    padding-top: 1.5rem;
+  }
+  .panel-body {
+    background-color: #313131;
+    color: white;
+    padding: 1.5rem;
+  }
+  .container {
+    padding-left: 0PX;
+    padding-left: 0PX;
+  }
+  .checkbox input{
+    height: 20px;
+    width: 20px;
+    margin: 10px;
+    left: 40%;
+  }
+  .checkbox span{
+    font-size: 1rem;
+    padding-top: 0.5rem;
+  }
+  button {
+    position: absolute;
+    top: 20%;
+  }
+  .checkbox {
+    background-color: #616161;
+    justify-content: center;
+  }
   .one {
-    background-color: rgb(81, 81, 109);
+    background-color: black;
     float: left;
-    width: 50%;
+    padding-bottom: 15px;
+    padding-top: 15px;
   }
   .two {
-    background-color: rgb(92, 116, 136);
+    background-color: black;
     float: right;
-    width: 50%;
+    padding-bottom: 15px;
+    padding-top: 15px;
   }
-  .tree {
-    background-color: rgb(141, 117, 137);
-    float: left;
-    width: 50%;
+  .pokemons-container {
+    justify-content: center;
   }
-  .four {
-    background-color: rgb(96, 119, 101);
-    float: right;
-    width: 50%;
-  }
-
 </style>

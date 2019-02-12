@@ -20,3 +20,12 @@ export default {
   }
 }
 </script>
+
+
+<style>
+  button {
+    background-color: #1b82b1;
+    border-radius: 5px;
+    vertical-align: center;
+  }
+</style>
