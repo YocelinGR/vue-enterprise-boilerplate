@@ -14,9 +14,9 @@
     </div>
 
     <div class="col-md-3 one">
-      <ul is="draggable" v-model="pokemonsList" class="list-group" :element="'ul'" :options="dragOptions" @start ="isDragging=true" @end="isDragging=false">
+      <ul is="draggable" v-model="dimanycPokemonList" class="list-group" :element="'ul'" :options="dragOptions" @start ="isDragging=true" @end="isDragging=false">
         <transition-group type="transition" name="flip-list">
-          <li v-for="pokemon in pokemonsList" :key="pokemon.order" class="list-group-item">
+          <li v-for="pokemon in dimanycPokemonList" :key="pokemon.order" class="list-group-item">
             <i :class="pokemon.fixed? 'fas fa-anchor' : 'fas fa-broom'" aria-hidden="true" @click=" pokemon.fixed=! pokemon.fixed"></i>
             {{pokemon.name}}
             <span class="badge">{{ pokemon.order }}</span>
@@ -51,6 +51,7 @@
 // import GoPokemon from './GoPokemon';
 import SearchPokemon from './SearchPokemon';
 import draggable from 'vuedraggable';
+import { mapState } from 'vuex';
 
 // Component definition
 export default {
@@ -58,11 +59,6 @@ export default {
     // GoPokemon,
     SearchPokemon,
     draggable,
-  },
-  props: {
-    pokemons: {
-      type: Array,
-    },
   },
   data(){
     return {
@@ -73,12 +69,30 @@ export default {
     }
   },
   computed: {
-    pokemonsList(){
-      const newPokemonArray = this.pokemons.map((pokemon, index) => {
-        return { name: pokemon.name, order: index + 1, fixed: false};
-      });
-      console.log(newPokemonArray);
-      return newPokemonArray;
+    ...mapState({
+      pokemonsList: state => state.pokemonsList
+    }),
+    dimanycPokemonList: {
+      get: function(){
+        var a = this.pokemonsList;
+        var b = this.pokemonsList2;
+        function comparer(otherArray){
+          return function(current){
+            return otherArray.filter(function(other){
+              return other.name === current.name && other.order === current.order
+            }).length === 0;
+          }
+        }
+
+        var onlyInA = a.filter(comparer(b));
+        var onlyInB = b.filter(comparer(a));
+
+        var result = onlyInA.concat(onlyInB);
+        return result;
+      },
+      set: function() {
+        // console.log('hecho');
+      }
     },
     dragOptions(){
       return {
@@ -89,7 +103,7 @@ export default {
       };
     },
     listString() {
-      return JSON.stringify(this.pokemonsList, null, 2);
+      return JSON.stringify(this.dimanycPokemonList, null, 2);
     },
     list2String() {
       return JSON.stringify(this.pokemonsList2, null, 2);
@@ -106,10 +120,13 @@ export default {
       });
     },
   },
+  beforeCreate(){
+    this.$store.dispatch('actualizePokemons', 50);
+  },
   methods: {
     orderList() {
-      this.pokemonsList = this.pokemonsList.sort((one, two) => {
-        return two.order - one.order;
+      this.pokemonsList2 = this.pokemonsList2.sort((one, two) => {
+        return one.order - two.order;
       });
     },
     onMove({relatedContext, draggedContext}) {

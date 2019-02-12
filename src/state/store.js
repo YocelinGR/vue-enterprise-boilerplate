@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import actions from './actions'
+import { mutations } from './mutations'
 
 import modules from './modules'
 
@@ -11,6 +13,11 @@ const store = new Vuex.Store({
   // when mutating state outside of a mutation.
   // https://vuex.vuejs.org/guide/strict.html
   strict: process.env.NODE_ENV !== 'production',
+  state: {
+    pokemonsList: [],
+  },
+  mutations,
+  actions,
 })
 
 // Automatically run the `init` action for every module,

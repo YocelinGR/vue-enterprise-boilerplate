@@ -35,6 +35,8 @@ const apolloProvider = new VueApollo({
   defaultClient: apolloClient,
 })
 
+export default apolloClient
+
 // Start the app
 const app = new Vue({
   el: '#app',

@@ -1,29 +1,11 @@
 <template>
   <div id="app">
-    <PokemonsList :pokemons="pokemons"/>
+    <PokemonsList/>
   </div>
 </template>
 
 <script>
 import PokemonsList from './components/PokemonsList'
-import gql from 'graphql-tag';
-
-// Grapphql query
-const getPokemons =gql`
-  query pokemons($first: Int!){
-  pokemons(first: $first){
-    id
-    name
-    number
-    attacks {
-      special {
-        name
-        type
-        damage
-      }
-    }
-  }
-}`;
 
 export default {
   name: 'App',
@@ -31,19 +13,7 @@ export default {
     PokemonsList,
   },
   data: () => ({
-      pokemons: [],
-  }),
-  // Apollo GraphQL
-  apollo: {
-    pokemons: {
-      query: getPokemons,
-      variables(){
-        return {
-          first: 10
-        }
-      },
-    },
-  }
+  })
 }
 </script>
 
